@@ -66,9 +66,9 @@ class ClientPlayer extends Player {
         this.events.emit("ready", _)
         setInterval(() => {
           console.log("[CHK >> GeoFS API] API Poll")
-          this.#poll()
+          this.#poll(this._self)
             .then(_ => {
-              console.log("[CHK >> GeoFS API] OK, " + _.users?.length + " players")
+              console.log("[CHK >> GeoFS API] OK, " + _.users?.length + " players vs the reported of " + _.userCount)
               console.log(_)
               this.events.emit("poll", _)
             })
@@ -82,7 +82,7 @@ class ClientPlayer extends Player {
   
   #poll(user) {
     return new Promise((re, rj) => {
-      if (user !== undefined && user !== null) {
+      if (user !== undefined && user !== null && user !== {}) {
         axios.post(MPS, user)
           .then(r => {
             if (!!r?.data && r?.data !== undefined && r?.data !== "" && r?.data !== null) {
