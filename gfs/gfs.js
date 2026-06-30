@@ -115,7 +115,7 @@ class ClientPlayer extends Player {
     return new new Promise((re, rj) => {
       axios.post(MPS, this._self, {headers: header})
         .then(_ => {
-          console.log(JSON.stringify(_, null, 4)
+          console.log(JSON.stringify(_, null, 4))
         })
         .catch(_ => {
           console.error("Failed!")
