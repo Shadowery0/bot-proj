@@ -80,28 +80,15 @@ class ClientPlayer extends Player {
       .catch(e => console.error(e))
   }
   
-  #poll(user) {
-    return new Promise((re, rj) => {
-      if (user !== undefined && user !== null && user !== {}) {
-        axios.post(MPS, user)
-          .then(r => {
-            if (!!r?.data && r?.data !== undefined && r?.data !== "" && r?.data !== null) {
-              re(r.data)
-            } else rj(null)
-          })
-          .catch(rj)
-      } else {
-        axios.post(MPS, this._self)
-          .then(r => {
-            if (!!r?.data && r?.data !== undefined && r?.data !== "" && r?.data !== null) {
-              re(r.data)
-            } else rj(null)
-          })
-          .catch(rj)
-      }
-    })
+  #poll() {
+    axios.post(MPS, this._self)
+      .then(r => {
+        if (!!r?.data && r?.data !== undefined && r?.data !== "" && r?.data !== null) {
+          re(r.data)
+        } else rj(null)
+      })
+      .catch(rj)
   }
-  
 }
 
 class GFSManager {
