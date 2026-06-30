@@ -35,8 +35,8 @@ class ClientPlayer extends Player {
         .then(_r => { 
           if(!!_r?.data && _r?.data !== undefined && _r?.data !== "" && _r?.data !== null) {
             re(_r)
-            console.log("Connected to GeoFS. I am " + _r.data.id)
-            this._self["id"] = _r.data.id
+            console.log("Connected to GeoFS. I am " + _r.data.myId)
+            this._self["id"] = _r.data.myId
           } else {
             console.log("Null resp.")
             rj(null)
@@ -68,7 +68,7 @@ class ClientPlayer extends Player {
           console.log("[CHK >> GeoFS API] API Poll")
           this.#poll()
             .then(_ => {
-              console.log("[CHK >> GeoFS API] OK, " + _.users?.length + "players")
+              console.log("[CHK >> GeoFS API] OK, " + _.users?.length + " players")
               this.events.emit("poll", _)
             })
             .catch(_ => {
