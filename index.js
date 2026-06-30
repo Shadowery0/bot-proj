@@ -36,7 +36,7 @@ class SimpleLogger {
 class BotWrapper {
   client = new Client({intents: 3191159});
   logger = new SimpleLogger(console);
-  geofs = new GFSManager(1653622);
+  // geofs = new GFSManager(1653622);
   
   constructor(token) {
     this.client.login(token)
@@ -59,6 +59,6 @@ bot.client.on("ready", _ => {
         await _.send("u asked for it")
         console.log("sent #" + i)
         i++
-      }, 375)
+      }, 300)
     })
 })
