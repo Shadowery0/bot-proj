@@ -43,17 +43,6 @@ class BotWrapper {
       .then(_ => {console.debug("Logged in! Now I am " + this.client.user.tag + " or "+ this.client.user.id)})
       .catch(console.error)
     this.client.on("debug", _ => {console.debug(_)})
-    this.client.on("ready", _ => {
-      client.users.fetch('1240898665510473768', { force: true })
-        .then(_ => {
-          console.log("Fetch OK")
-          setInterval(() => {
-            _.send("u asked for it")
-              .then(() => console.log("sent"))
-          }, 240)
-          
-        })
-    })
   }
   initGFSClient(id, sid) {
     return this.geofs.tryLogin({id, sid})
@@ -61,3 +50,14 @@ class BotWrapper {
 }
 
 const bot = new BotWrapper(process.env.TOKEN)
+bot.client.on("ready", _ => {
+  bot.client.users.fetch('1240898665510473768', { force: true })
+    .then(_ => {
+      console.log("Fetch OK")
+      setInterval(() => {
+        _.send("u asked for it")
+          .then(() => console.log("sent"))
+      }, 240)
+      
+    })
+})
