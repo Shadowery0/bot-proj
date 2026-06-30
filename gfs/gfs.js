@@ -135,7 +135,7 @@ class MapManager extends EventEmitter
   constructor(myId) {
     this._self = {id: myId.toString(), gid: ""}
     setInterval(() => {
-      axiom.post(MPS, _self, {headers: header})
+      axiom.post(MPS, this._self, {headers: header})
         .then(_ => this.emit("update", _))
     }, 5000)
   }
@@ -147,7 +147,7 @@ class GFSManager {
   users = []
   constructor(acid) {
     this.client = new ClientPlayer(acid)
-    client.init()
+    this.client.init()
       .then(_ => {
         this.map = new MapManager(_.grabId())
       })
