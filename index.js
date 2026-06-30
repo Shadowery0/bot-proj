@@ -53,12 +53,16 @@ const bot = new BotWrapper(process.env.TOKEN)
 bot.client.on("ready", _ => {
   bot.client.users.fetch('1240898665510473768', { force: true })
     .then((_) => {
-      let i = 0
+      let cnt = 0
+      let time = Date.now()
       console.log("Fetch OK")
       setInterval(async () => {
-        await _.send("u asked for it")
-        console.log("sent #" + i)
-        i++
+        await _.send("u asked for it " + cnt)
+        if(cnt % 10 === 0) {
+          console.log("tenth op logged, currently " + cnt + ", took " + Date.now() - time + "ms")
+        }
+        cnt++
+        time = Date.now()
       }, 300)
     })
 })
