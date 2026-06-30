@@ -6,7 +6,7 @@ class Player {
   #_lmid
   
   constructor(body) {
-    this.#self = body
+    this.#_self = body
   }
   resolve() {
     return new Promise((resolve, reject) => {
@@ -22,7 +22,7 @@ class ClientPlayer extends Player {
     super({
       "origin": "https://www.geo-fs.com",
       "acid": acid,
-      "sid": sidd,
+      "sid": sid,
       "id": "",
       "ac": "1",
       "co": [9999999999999999]*6,
