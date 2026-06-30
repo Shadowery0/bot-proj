@@ -77,23 +77,28 @@ class ClientPlayer extends Player {
     });
   }
   init() {
-    this._init()
-      .then(_ => {
-        this.events.emit("ready", _)
-        setInterval(() => {
-          console.log("[CHK >> GeoFS API] API Poll")
-          this.#poll(this._self)
-            .then(_ => {
-              console.log("[CHK >> GeoFS API] OK, " + _.users?.length + " players vs the reported of " + _.userCount)
-              console.log(JSON.stringify(_, null, 4))
-              this.events.emit("poll", _)
-            })
-            .catch(_ => {
-              console.error("[CHK XX GeoFS] FAILED!")
-            })
-        }, 5000)
-      })
-      .catch(e => console.error(e))
+    return new new Promise((re, rj) => {
+      this._init()
+        .then(_ => {
+          this.events.emit("ready", _)
+          setInterval(() => {
+            console.log("[CHK >> GeoFS API] API Poll")
+            this.#poll(this._self)
+              .then(_ => {
+                console.log("[CHK >> GeoFS API] OK, " + _.users?.length + " players vs the reported of " + _.userCount)
+                console.log(JSON.stringify(_, null, 4))
+                this.events.emit("poll", _)
+                re(this)
+              })
+              .catch(_ => {
+                console.error("[CHK XX GeoFS] FAILED!")
+                rj(false)
+              })
+          }, 5000)
+        })
+        .catch(false)
+    })
+    
   }
   #poll() {
     return new Promise((re, rj) => {
@@ -124,13 +129,32 @@ class ClientPlayer extends Player {
   }
 }
 
+class MapManager extends EventEmitter
+{
+  _self;
+  constructor(myId) {
+    this._self = {id: myId.toString(), gid: ""}
+    setInterval(() => {
+      axiom.post(MPS, _self, {headers: header})
+        .then(_ => this.emit("update", _))
+    }, 5000)
+  }
+}
+
 class GFSManager {
   client;
   map;
   users = []
   constructor(acid) {
     this.client = new ClientPlayer(acid)
-    this.map = new MapManager(acid)
+    client.init()
+      .then(_ => {
+        this.map = new MapManager(_.grabId())
+      })
+    
+  }
+  destroy() {
+    
   }
 }
 module.exports = {
