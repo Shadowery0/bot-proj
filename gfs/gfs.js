@@ -81,13 +81,15 @@ class ClientPlayer extends Player {
   }
   
   #poll() {
-    axios.post(MPS, this._self)
-      .then(r => {
-        if (!!r?.data && r?.data !== undefined && r?.data !== "" && r?.data !== null) {
-          re(r.data)
-        } else rj(null)
-      })
-      .catch(rj)
+    return new Promise(() => {
+      axios.post(MPS, this._self)
+        .then(r => {
+          if (!!r?.data && r?.data !== undefined && r?.data !== "" && r?.data !== null) {
+            re(r.data)
+          } else rj(null)
+        })
+        .catch(rj)
+    })
   }
 }
 
