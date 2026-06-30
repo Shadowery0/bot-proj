@@ -36,7 +36,7 @@ class SimpleLogger {
 class BotWrapper {
   client = new Client({intents: 3191159});
   logger = new SimpleLogger(console);
-  geofs = new GFSManager();
+  geofs = new GFSManager(1653622, 1);
   
   constructor(token) {
     this.client.login(token)
