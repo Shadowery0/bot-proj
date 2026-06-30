@@ -22,8 +22,14 @@ class ClientPlayer extends Player {
   events = new EventEmitter()
   async _tryCon() {
     try {
+      const one = await axios.post(MPS, this._self)
+      console.log("First poll OK")
+      
+      this._self.id = one?.myId ?? ""
+      this._self.ci = 0
+      this._self.ti = Date.now() * 1000
+      
       const r = await axios.post(MPS, this._self)
-      console.log(r.data)
       return r
     } catch(e) {
       throw new Error("Request Rejected: " + e)
@@ -57,7 +63,7 @@ class ClientPlayer extends Player {
       "st": {"gr": 0, "as": 0},
       "ro": {"ad": 0},
       "ti": Date.now() * 1000,
-      "m": "",
+      "m": "Hello World",
       "ci": 0
     });
     
@@ -82,7 +88,6 @@ class ClientPlayer extends Player {
   
   #poll() {
     return new Promise((re, rj) => {
-      this._self["m"] = "Hello World"
       axios.post(MPS, this._self)
         .then(r => {
           if (!!r?.data && r?.data !== undefined && r?.data !== "" && r?.data !== null) {
