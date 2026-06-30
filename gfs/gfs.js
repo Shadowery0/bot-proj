@@ -66,7 +66,7 @@ class ClientPlayer extends Player {
       "acid": acid,
       "sid": sid,
       "id": "",
-      "ac": 1,
+      "ac": null,
       "co": Array(6).fill(0),
       "ve": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
       "st": {"gr": 1, "as": 0},
