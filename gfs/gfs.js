@@ -44,7 +44,7 @@ class ClientPlayer extends Player {
       throw new Error("Request Rejected: " + e.code + "\n" + e.data)
     }
   }
-  init() {
+  _init() {
     return new Promise((re, rj) => {
       this._tryCon()
         .then(_r => { 
@@ -60,13 +60,13 @@ class ClientPlayer extends Player {
         .catch(e => rj(e))
     })
   }
-  constructor(acid, sid) {
+  constructor(acid) {
     super({
       "origin": "https://www.geo-fs.com",
       "acid": acid,
-      "sid": sid,
+      "sid": "gqgn2t3qahcoo2tkghuu00l9ps",
       "id": "",
-      "ac": null,
+      "ac": 1,
       "co": Array(6).fill(0),
       "ve": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
       "st": {"gr": 1, "as": 0},
@@ -75,9 +75,10 @@ class ClientPlayer extends Player {
       "m": "",
       "ci": 0
     });
-    
-    this.init()
-      .then(_ => { 
+  }
+  init() {
+    this._init()
+      .then(_ => {
         this.events.emit("ready", _)
         setInterval(() => {
           console.log("[CHK >> GeoFS API] API Poll")
@@ -94,7 +95,6 @@ class ClientPlayer extends Player {
       })
       .catch(e => console.error(e))
   }
-  
   #poll() {
     return new Promise((re, rj) => {
       axios.post(MPS, this._self, {headers: header})
@@ -107,11 +107,30 @@ class ClientPlayer extends Player {
         .catch(rj)
     })
   }
+  grabId() {
+    return _self.id
+  }
+  sendMessage(m) {
+    this._self.m = m
+    return new new Promise((re, rj) => {
+      axios.post(MPS, this._self, {headers: header})
+        .then(_ => {
+          console.log(JSON.stringify(_, null, 4)
+        })
+        .catch(_ => {
+          console.error("Failed!")
+        })
+    })
+  }
 }
 
 class GFSManager {
-  constructor(acid, sid) {
-    return new ClientPlayer(acid, sid);
+  client;
+  map;
+  users = []
+  constructor(acid) {
+    client = new ClientPlayer(acid)
+    map = new MapManager(acid)
   }
 }
 module.exports = {
