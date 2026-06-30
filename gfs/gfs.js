@@ -31,8 +31,9 @@ class ClientPlayer extends Player {
       
       const r = await axios.post(MPS, this._self)
       return r
+      
     } catch(e) {
-      throw new Error("Request Rejected: " + e)
+      throw new Error("Request Rejected: " + e.code + "\n" + e.data)
     }
   }
   init() {
