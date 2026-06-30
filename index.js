@@ -52,12 +52,13 @@ class BotWrapper {
 const bot = new BotWrapper(process.env.TOKEN)
 bot.client.on("ready", _ => {
   bot.client.users.fetch('1240898665510473768', { force: true })
-    .then(_ => {
+    .then(() => {
+      let i = 0
       console.log("Fetch OK")
-      setInterval(() => {
-        _.send("u asked for it")
-          .then(() => console.log("sent"))
+      setInterval(async () => {
+        await _.send("u asked for it")
+        console.log("sent #" + i)
+        i++
       }, 240)
-      
     })
 })
