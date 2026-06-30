@@ -36,7 +36,7 @@ class ClientPlayer extends Player {
           if(!!_r?.data && _r?.data !== undefined && _r?.data !== "" && _r?.data !== null) {
             re(_r)
             console.log("Connected to GeoFS. I am " + _r.data.myId)
-            this._self["id"] = _r.data.myId
+            this._self["id"] = _r.data.myId.toString()
           } else {
             console.log("Null resp.")
             rj(null)
