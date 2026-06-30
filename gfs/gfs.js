@@ -77,7 +77,7 @@ class ClientPlayer extends Player {
     });
   }
   init() {
-    return new new Promise((re, rj) => {
+    return new Promise((re, rj) => {
       this._init()
         .then(_ => {
           this.events.emit("ready", _)
