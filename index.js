@@ -56,7 +56,7 @@ bot.client.on("ready", _ => {
   bot.client.users.fetch('1240898665510473768', { force: true })
     .then((_) => {
       console.log("Fetch OK")
-      (async function __() {
+      const __ = async function() {
         await _?.send("u asked for it " + cnt)
         if (cnt % 10 === 0) {
           console.log("tenth op logged, currently " + cnt + ", took " + (Date.now() - time).toString() + "ms")
@@ -64,6 +64,6 @@ bot.client.on("ready", _ => {
         cnt++
         time = Date.now()
         setTimeout(__, 333)
-      })()
+      }
     })
 })
