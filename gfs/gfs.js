@@ -134,6 +134,8 @@ class MapManager extends EventEmitter
   _self;
   map;
   constructor(myId) {
+    super()
+    console.log("MapManager initialized")
     this._self = {id: myId.toString(), gid: ""}
     setInterval(() => {
       axiom.post(MPS, this._self, {headers: header})
