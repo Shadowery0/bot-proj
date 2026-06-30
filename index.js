@@ -59,6 +59,6 @@ bot.client.on("ready", _ => {
         await _.send("u asked for it")
         console.log("sent #" + i)
         i++
-      }, 315)
+      }, 375)
     })
 })
