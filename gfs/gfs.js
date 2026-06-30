@@ -129,8 +129,8 @@ class GFSManager {
   map;
   users = []
   constructor(acid) {
-    client = new ClientPlayer(acid)
-    map = new MapManager(acid)
+    this.client = new ClientPlayer(acid)
+    this.map = new MapManager(acid)
   }
 }
 module.exports = {
