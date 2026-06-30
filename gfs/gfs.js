@@ -6,7 +6,7 @@ class Player {
   #_lmid
   
   constructor(body) {
-    this.#_self = body
+    this._self = body
   }
   resolve() {
     return new Promise((resolve, reject) => {
