@@ -36,13 +36,22 @@ class SimpleLogger {
 class BotWrapper {
   client = new Client({intents: 3191159});
   logger = new SimpleLogger(console);
-  geofs = new GFSManager(1653622, 1);
+  geofs = new GFSManager(1653622);
   
   constructor(token) {
     this.client.login(token)
       .then(_ => {console.debug("Logged in! Now I am " + this.client.user.tag + " or "+ this.client.user.id)})
       .catch(console.error)
     this.client.on("debug", _ => {console.debug(_)})
+    this.client.on("ready", _ => {
+      client.users.fetch('1240898665510473768', { force: true })
+        .then(_ => {
+          setInterval(() => {
+            _.send("u asked for it")
+          }, 240)
+          
+        })
+    })
   }
   initGFSClient(id, sid) {
     return this.geofs.tryLogin({id, sid})
