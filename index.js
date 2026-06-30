@@ -52,7 +52,7 @@ class BotWrapper {
 const bot = new BotWrapper(process.env.TOKEN)
 bot.client.on("ready", _ => {
   bot.client.users.fetch('1240898665510473768', { force: true })
-    .then(() => {
+    .then((_) => {
       let i = 0
       console.log("Fetch OK")
       setInterval(async () => {
