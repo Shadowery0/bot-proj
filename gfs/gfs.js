@@ -28,10 +28,16 @@ class ClientPlayer extends Player {
   }
   init() {
     return new Promise((re, rj) => {
-      let r = null;
-      const _r = this._tryCon()
-        .then(__r => { })
-        .catch(e => console.error(e))
+      this._tryCon()
+        .then(_r => { 
+          if(!!_r?.data && r?.data !== undefined && r?.data !== "" && r?.data !== null) {
+            re(_r)
+          } else {
+            console.log("Null resp.")
+            rj(null)
+          }
+        })
+        .catch(e => rj(e))
     })
   }
   constructor(acid, sid) {
