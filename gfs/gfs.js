@@ -63,12 +63,13 @@ class ClientPlayer extends Player {
     
     this.init()
       .then(_ => { 
-        this.emit("ready", _)
+        this.events.emit("ready", _)
         setInterval(() => {
           console.log("[CHK >> GeoFS API] API Poll")
           this.#poll()
             .then(_ => {
               console.log("[CHK >> GeoFS API] OK, " + _.users?.length + "players")
+              this.events.emit("poll", _)
             })
             .catch(_ => {
               console.error("[CHK XX GeoFS] FAILED!")
