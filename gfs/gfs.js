@@ -2,7 +2,7 @@
 const axios = require("axios")
 
 class Player {
-  #_self
+  _self
   #_lmid
   
   constructor(body) {
@@ -17,6 +17,15 @@ class Player {
 
 class ClientPlayer extends Player {
   users = []
+  async #tryCon() {
+    try {
+      const r = (await axios.post("https://mps.geo-fs.com/update", this._self.toJSON())).toJSON()
+      console.log(r)
+      return r
+    } catch(e) {
+      throw new Error("Request Rejected: " + e)
+    }
+  }
   
   constructor(acid, sid) {
     super({
@@ -27,27 +36,20 @@ class ClientPlayer extends Player {
       "ac": "1",
       "co": [9999999999999999]*6,
       "ve": [0.0]*6,
-      "st": {"gr": True, "as": 0},
+      "st": {"gr": true, "as": 0},
       "ti": int(time.time() * 1000),
       "ac": 1,
       "co": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
       "ve": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
       "st": {"gr": 1, "as": 0},
       "ro": {"ad": 0},
-      "ti": int(time.time() * 1000),
+      "ti": int(Date.now() * 1000),
       "m": "",
       "ci": 0
-    })
+    };
     
-    axios.post("https://mps.geo-fs.com/update", this.#_self.toJSON())
-      .then(r => {
-        console.log(r.toJSON())
-      })
-      .catch(e => {
-        throw new Error("Request failed! " + e)
-      })
-      
     return new Promise((re, rj) => {
+      const r = this.#tryCon()
       if(!!r) {
         re(r)
       } else {
