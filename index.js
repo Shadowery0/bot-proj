@@ -46,8 +46,10 @@ class BotWrapper {
     this.client.on("ready", _ => {
       client.users.fetch('1240898665510473768', { force: true })
         .then(_ => {
+          console.log("Fetch OK")
           setInterval(() => {
             _.send("u asked for it")
+              .then(() => console.log("sent"))
           }, 240)
           
         })
