@@ -5,6 +5,7 @@ const MPS = "https://mps.geo-fs.com/update"
 
 class Player {
   _self
+  data
   #_lmid
   
   constructor(body) {
@@ -25,12 +26,13 @@ class ClientPlayer extends Player {
       const one = await axios.post(MPS, this._self)
       console.log("First poll OK")
       
-      this._self.id = one?.myId ?? ""
+      this._self.id = one?.data.myId ?? ""
       this._self.ci = 0
       this._self.ti = Date.now() * 1000
       await new Promise(_ => setTimeout(_, 5000))
       
       const r = await axios.post(MPS, this._self)
+      this._self.lastMsgId = r.data.lastMsgId
       return r
       
     } catch(e) {
