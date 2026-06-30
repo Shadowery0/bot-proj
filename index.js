@@ -65,5 +65,6 @@ bot.client.on("ready", _ => {
         time = Date.now()
         setTimeout(__, 333)
       }
+      __()
     })
 })
