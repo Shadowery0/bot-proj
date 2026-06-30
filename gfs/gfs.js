@@ -2,6 +2,11 @@
 const axios = require("axios")
 const { EventEmitter } = require("events")
 const MPS = "https://mps.geo-fs.com/update"
+const header = {
+  "Origin": "https://www.geo-fs.com",
+  "Referer": "https://www.geo-fs.com/geofs.php",
+  "User-Agent": "Mozilla/5.0"
+}
 
 class Player {
   _self
@@ -23,7 +28,7 @@ class ClientPlayer extends Player {
   events = new EventEmitter()
   async _tryCon() {
     try {
-      const one = await axios.post(MPS, this._self)
+      const one = await axios.post(MPS, this._self, {headers: header})
       console.log("First poll OK")
       
       this._self.id = one?.data.myId ?? ""
@@ -31,7 +36,7 @@ class ClientPlayer extends Player {
       this._self.ti = Date.now() * 1000
       await new Promise(_ => setTimeout(_, 5000))
       
-      const r = await axios.post(MPS, this._self)
+      const r = await axios.post(MPS, this._self, {headers: header})
       this._self.lastMsgId = r.data.lastMsgId
       return r
       
@@ -62,12 +67,12 @@ class ClientPlayer extends Player {
       "sid": sid,
       "id": "",
       "ac": 1,
-      "co": Array(6).fill(50),
+      "co": Array(6).fill(0),
       "ve": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-      "st": {"gr": 0, "as": 0},
+      "st": {"gr": 1, "as": 0},
       "ro": {"ad": 0},
       "ti": Date.now() * 1000,
-      "m": "Hello World",
+      "m": "",
       "ci": 0
     });
     
@@ -92,7 +97,7 @@ class ClientPlayer extends Player {
   
   #poll() {
     return new Promise((re, rj) => {
-      axios.post(MPS, this._self)
+      axios.post(MPS, this._self, {headers: header})
         .then(r => {
           if (!!r?.data && r?.data !== undefined && r?.data !== "" && r?.data !== null) {
             re(r.data)
