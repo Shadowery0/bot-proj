@@ -54,7 +54,7 @@ class ClientPlayer extends Player {
       "ac": 1,
       "co": Array(6).fill(50),
       "ve": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-      "st": {"gr": 1, "as": 0},
+      "st": {"gr": 0, "as": 0},
       "ro": {"ad": 0},
       "ti": Date.now() * 1000,
       "m": "",
