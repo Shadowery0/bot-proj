@@ -6,6 +6,6 @@ require("dotenv").config()
 let cmd = []
 let dir = fs.readdirSync(path.join(__dirname, "commands/"))
 
-for(item in dir) {
+for(const item of dir) {
   console.log(item)
 }
