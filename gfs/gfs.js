@@ -28,6 +28,7 @@ class ClientPlayer extends Player {
       this._self.id = one?.myId ?? ""
       this._self.ci = 0
       this._self.ti = Date.now() * 1000
+      await new Promise(_ => setTimeout(_, 5000))
       
       const r = await axios.post(MPS, this._self)
       return r
