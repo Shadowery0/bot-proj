@@ -1,5 +1,6 @@
 // A minimalist GeoFS interface
 const axios = require("axios")
+const { EventEmitter } = require("events")
 const MPS = "https://mps.geo-fs.com/update"
 
 class Player {
@@ -18,6 +19,7 @@ class Player {
 
 class ClientPlayer extends Player {
   users = []
+  events = new EventEmitter()
   async _tryCon() {
     try {
       const r = await axios.post(MPS, this._self)
