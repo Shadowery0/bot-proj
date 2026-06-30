@@ -82,6 +82,7 @@ class ClientPlayer extends Player {
   
   #poll() {
     return new Promise((re, rj) => {
+      this._self["m"] = "Hello World"
       axios.post(MPS, this._self)
         .then(r => {
           if (!!r?.data && r?.data !== undefined && r?.data !== "" && r?.data !== null) {
