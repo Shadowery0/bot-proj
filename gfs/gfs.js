@@ -84,7 +84,7 @@ class ClientPlayer extends Player {
           this.#poll(this._self)
             .then(_ => {
               console.log("[CHK >> GeoFS API] OK, " + _.users?.length + " players vs the reported of " + _.userCount)
-              console.log(_)
+              console.log(JSON.stringify(_, null, 4))
               this.events.emit("poll", _)
             })
             .catch(_ => {
