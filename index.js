@@ -59,7 +59,7 @@ bot.client.on("ready", _ => {
       setInterval(async () => {
         await _.send("u asked for it " + cnt)
         if(cnt % 10 === 0) {
-          console.log("tenth op logged, currently " + cnt + ", took " + Date.now() - time + "ms")
+          console.log("tenth op logged, currently " + cnt + ", took " + (Date.now() - time).toString() + "ms")
         }
         cnt++
         time = Date.now()
