@@ -113,7 +113,7 @@ class ClientPlayer extends Player {
     })
   }
   grabId() {
-    return _self.id
+    return this._self.id
   }
   sendMessage(m) {
     this._self.m = m
@@ -132,11 +132,12 @@ class ClientPlayer extends Player {
 class MapManager extends EventEmitter
 {
   _self;
+  map;
   constructor(myId) {
     this._self = {id: myId.toString(), gid: ""}
     setInterval(() => {
       axiom.post(MPS, this._self, {headers: header})
-        .then(_ => this.emit("update", _))
+        .then(_ => {this.emit("update", _); this.map = _; console.log("Pulled MAP OK")})
     }, 5000)
   }
 }
