@@ -46,7 +46,7 @@ class ClientPlayer extends Player {
       "ti": int(Date.now() * 1000),
       "m": "",
       "ci": 0
-    };
+    });
     
     return new Promise((re, rj) => {
       const r = this.#tryCon()
