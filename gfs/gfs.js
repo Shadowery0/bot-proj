@@ -138,13 +138,13 @@ class MapManager extends EventEmitter
     console.log("MapManager initialized")
     this._self = {id: myId.toString(), gid: ""}
     setInterval(() => {
-      axiom.post(MPS, this._self, {headers: header})
-        .then(_ => {this.emit("update", _); this.map = _; console.log("Pulled MAP OK")})
+      axios.post(MPS, this._self, {headers: header})
+        .then(_ => {this.emit("update", _.data); this.map = _; console.log("Pulled MAP OK")})
     }, 5000)
   }
 }
 
-class GFSManager {
+class GFSManager extends EventEmitter{
   client;
   map;
   users = []
@@ -153,9 +153,12 @@ class GFSManager {
     this.client.init()
       .then(_ => {
         this.map = new MapManager(_.grabId())
+        this.client.events.on("ready", _ => this.emit("clientReady", _))
+        this.client.events.on("poll", _ => this.emit("clientPoll", _))
+        this.map.on("update", _ => this.emit("mapUpdate", _))
       })
-    
   }
+  
   destroy() {
     
   }

@@ -1,4 +1,5 @@
 const { GFSManager } = require("./gfs.js")
 
 const player = new GFSManager(1653622)
-console.log(player)
+player.on("clientPoll", () => console.log("Poll'd"))
+player.on("mapUpdate", _ => console.log("MapUpdate received, type " + typeof _))
