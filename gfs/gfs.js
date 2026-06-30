@@ -136,7 +136,8 @@ class MapManager extends EventEmitter
   constructor(myId) {
     super()
     console.log("MapManager initialized")
-    this._self = {id: myId.toString(), gid: ""}
+    this._self = {id: myId.toString(), gid: null}
+    
     setInterval(() => {
       axios.post(MPS, this._self, {headers: header})
         .then(_ => {this.emit("update", _.data); this.map = _; console.log("Pulled MAP OK")})
