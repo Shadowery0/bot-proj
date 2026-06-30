@@ -139,7 +139,7 @@ class MapManager extends EventEmitter
     this._self = {id: myId.toString(), gid: null}
     
     setInterval(() => {
-      axios.post(MPS, this._self, {headers: header})
+      axios.post("https://mps.geo-fs.com/map", this._self, {headers: header})
         .then(_ => {this.emit("update", _.data); this.map = _; console.log("Pulled MAP OK")})
     }, 5000)
   }
