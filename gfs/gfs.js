@@ -149,6 +149,7 @@ class GFSManager extends EventEmitter{
   map;
   users = []
   constructor(acid) {
+    super()
     this.client = new ClientPlayer(acid)
     this.client.init()
       .then(_ => {
