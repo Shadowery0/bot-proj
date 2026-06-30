@@ -52,7 +52,7 @@ class ClientPlayer extends Player {
       "sid": sid,
       "id": "",
       "ac": 1,
-      "co": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+      "co": Array(6).fill(999999),
       "ve": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
       "st": {"gr": 1, "as": 0},
       "ro": {"ad": 0},
