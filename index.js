@@ -18,8 +18,8 @@ class BotWrapper {
     // this.client.on("debug", _ => {console.debug(_)})
     this.client.on("clientReady", () => {
       rdsr(path.join(__dirname, "modules"), f => {
+        const _ = require(f)
         if (
-          const _ = require(f)
           _?.event === undefined || _?.handler === undefined ||
           typeof _?.event !== "string" || typeof _?.handler !== "function"
         ) {
