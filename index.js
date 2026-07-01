@@ -32,7 +32,7 @@ class BotWrapper {
         }
       })
     })
-    geofs.init()
+    this.geofs.init()
   }
 }
 
