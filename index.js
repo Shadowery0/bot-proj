@@ -20,12 +20,14 @@ class BotWrapper {
       rdsr(path.join(__dirname, "modules"), (cd, f) => {
         const _ = require(path.join(cd, f.name))
         if (
-          _?.event === undefined || _?.handler === undefined ||
-          typeof _?.event !== "string" || typeof _?.handler !== "function"
+          _?.event === undefined || _?.handler === undefined || _?.init === undefined
+          typeof _?.event !== "string" || typeof _?.handler !== "function" ||
+          typeof _?.init !== "function"
         ) {
           throw new TypeError(`Module file ${f.name} does not have valid data.`)
         } else {
           console.log(`Successfully loaded module "${_?.name ?? f.name}"`)
+          _.init()
           this.client.on(_.event, _.handler)
         }
       })
