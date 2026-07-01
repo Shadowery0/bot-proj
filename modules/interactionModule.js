@@ -1,4 +1,5 @@
 const rdsr = require("../recursive.js")
+const path = require("path")
 
 module.exports = {
   name: "Interaction Module",
@@ -7,6 +8,7 @@ module.exports = {
     console.debug("Received an interaction from user calling " + i.member.id +" | " + i.commandName)
     cmd.forEach(_ => {
       if(_.name === i.commandName) {
+        // It's up to you to handle the command, not me, I'm a loader!
         _.handler(i)
       }
     })
