@@ -1,6 +1,7 @@
 const rdsr = require("../recursive.js")
 const path = require("path")
 const { SlashCommandBuilder } = require("discord.js")
+let cmd = []
 
 module.exports = {
   name: "Interaction Module",
