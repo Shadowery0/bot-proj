@@ -11,7 +11,7 @@ rdsr(path.resolve("./", "commands/"), (cd, f) => {
   if(_?.data === undefined || !(_?.data instanceof SlashCommandBuilder)) {
     throw new TypeError(`Command file ${f.name} does not have a valid SlashCommandBuilder data.`)
   } else {
-    cmd.push(f.data.toJSON())
+    cmd.push(_.data.toJSON())
   }
 })
 
