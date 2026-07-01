@@ -6,7 +6,7 @@ require("dotenv").config()
 
 let cmd = []
 
-rdsr(path.join(__dirname, "commands/"), (cd, f) => {
+rdsr(path.resolve("./", "commands/"), (cd, f) => {
   const _ = require(path.join(cd, f.name))
   if(_?.data === undefined || !(_?.data instanceof SlashCommandBuilder)) {
     throw new TypeError(`Command file ${f.name} does not have a valid SlashCommandBuilder data.`)
