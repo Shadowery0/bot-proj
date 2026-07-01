@@ -25,6 +25,7 @@ class BotWrapper {
         ) {
           throw new TypeError(`Module file ${f.name} does not have valid data.`)
         } else {
+          console.log(`Successfully loaded module "${_?.name ?? f.name}"`)
           this.client.on(_.event, _.handler)
         }
       })
