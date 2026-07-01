@@ -5,7 +5,7 @@ require("dotenv").config()
 
 let cmd = []
 
-(function rdSRecursion(currentDir) {
+function rdSRecursion(currentDir) {
   let dir = fs.readdirSync(currentDir, { withFileTypes: true })
   
   dir = dir.filter(item => {
@@ -20,7 +20,9 @@ let cmd = []
       cmd.push(file.data?.toJSON())
     }
   }
-})(path.join(__dirname, "commands/"))
+}
+
+rdSRecursion(path.join(__dirname, "commands/"))
 
 let rest = new REST().setToken(process.env.TOKEN)
 
