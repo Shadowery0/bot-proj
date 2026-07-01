@@ -140,8 +140,17 @@ class MapManager extends EventEmitter
     
     setInterval(() => {
       axios.post("https://mps.geo-fs.com/map", this._self, {headers: header})
-        .then(_ => {this.emit("update", _.data); this.map = _; console.log("Pulled MAP OK")})
+        .then(_ => {
+          this.emit("update", _.data); 
+          this.map = _.data;
+          this.map.users = this.map.filter(_ => {
+            return _.cs !== "" && _.cs.toLowerCase() !== "Foo"
+          })
+        })
     }, 5000)
+  }
+  getPlayerCount() {
+    return map.length
   }
 }
 
@@ -152,6 +161,9 @@ class GFSManager extends EventEmitter{
   constructor(acid) {
     super()
     this.client = new ClientPlayer(acid)
+  }
+  
+  init() {
     this.client.init()
       .then(_ => {
         this.map = new MapManager(_.grabId())
@@ -159,10 +171,7 @@ class GFSManager extends EventEmitter{
         this.client.events.on("poll", _ => this.emit("clientPoll", _))
         this.map.on("update", _ => this.emit("mapUpdate", _))
       })
-  }
-  
-  destroy() {
-    
+    return this
   }
 }
 module.exports = {

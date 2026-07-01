@@ -8,7 +8,7 @@ const chalk = new Chalk({level: 2})
 
 class BotWrapper {
   client = new Client({intents: 3191159});
-  // geofs = new GFSManager(1653622);
+  geofs = new GFSManager();
   
   constructor(token) {
     // Login
@@ -32,6 +32,7 @@ class BotWrapper {
         }
       })
     })
+    geofs.init()
   }
 }
 

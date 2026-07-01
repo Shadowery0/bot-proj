@@ -7,7 +7,7 @@ module.exports = {
   name: "Interaction Module",
   event: "interactionCreate",
   handler: (i) => {
-    console.debug("Received an interaction from user calling " + i.member.id +" | " + i.commandName)
+    console.debug("Received an interaction from user" + i.member.id + " calling " + i.commandName)
     cmd.forEach(_ => {
       if(_.name === i.commandName) {
         // It's up to you to handle the command, not me, I'm a loader!
