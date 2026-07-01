@@ -17,8 +17,8 @@ class BotWrapper {
       .catch(console.error)
     // this.client.on("debug", _ => {console.debug(_)})
     this.client.on("clientReady", () => {
-      rdsr(path.join(__dirname, "modules"), f => {
-        const _ = require(path.join(f.parentDirectory, f.name))
+      rdsr(path.join(__dirname, "modules"), (cd, f) => {
+        const _ = require(path.join(cd, f.name))
         if (
           _?.event === undefined || _?.handler === undefined ||
           typeof _?.event !== "string" || typeof _?.handler !== "function"
