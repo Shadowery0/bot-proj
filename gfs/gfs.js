@@ -143,7 +143,9 @@ class MapManager extends EventEmitter
         .then(_ => {
           this.emit("update", _.data); 
           this.map = _.data;
+          console.log(this.map.users)
           this.map.users = this.map.users.filter(_ => {
+            if(!(_ === undefined || _ === null)) return false
             return _.cs !== "" && _.cs.toLowerCase() !== "Foo"
           })
         })
