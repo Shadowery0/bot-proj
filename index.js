@@ -1,3 +1,4 @@
+// Loader
 const { Client, GatewayIntentBits } = require("discord.js")
 const path = require("path")
 const rdsr = require("./recursive")
