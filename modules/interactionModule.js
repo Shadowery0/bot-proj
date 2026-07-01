@@ -4,6 +4,6 @@ module.exports = {
   handler: (i) => {
     console.log("Received an interaction from user " + i.member.id)
     i.deferReply()
-      .then(_ => _.interaction.reply("Test"))
+      .then(_ => i.editReply("Test"))
   }
 }
