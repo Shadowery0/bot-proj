@@ -4,16 +4,23 @@ const { REST, Routes } = require("discord.js")
 require("dotenv").config()
 
 let cmd = []
-let dir = fs.readdirSync(path.join(__dirname, "commands/"), {withFileTypes: true})
 
-for(const item of dir) {
-  if(item.isDirectory()) {
-    // later
-  } else {
-    const file = require(path.join(__dirname, "commands", item.name))
-    cmd.push(file.data?.toJSON())
+(function rdSRecursion(currentDir) {
+  let dir = fs.readdirSync(currentDir, { withFileTypes: true })
+  
+  dir = dir.filter(item => {
+    return item.isDirectory() || item.name.endsWith(".js")
+  })
+  
+  for (const item of dir) {
+    if (item.isDirectory()) {
+      rdSRecursion(path.join(currentDir, item.name))
+    } else {
+      const file = require(path.join(currentDir, item.name))
+      cmd.push(file.data?.toJSON())
+    }
   }
-}
+})(path.join(__dirname, "commands/"))
 
 let rest = new REST().setToken(process.env.TOKEN)
 

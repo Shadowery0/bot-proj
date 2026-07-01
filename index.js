@@ -15,7 +15,7 @@ class BotWrapper {
       .catch(console.error)
     this.client.on("debug", _ => {console.debug(_)})
     this.client.on("ready", () => {
-      // TODO: Implement modules
+      
     })
   }
   initGFSClient(id, sid) {
