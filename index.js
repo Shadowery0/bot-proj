@@ -3,7 +3,7 @@ const path = require("path")
 const rdsr = require("./recursive")
 const { Chalk } = require("chalk")
 const { GFSManager } = require("./gfs/gfs.js")
-require("dotenv").config({path.join("./",".env")})
+require("dotenv").config({path: path.join("./",".env")})
 const chalk = new Chalk({level: 2})
 
 class BotWrapper {
