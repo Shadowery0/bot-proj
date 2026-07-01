@@ -27,6 +27,6 @@ rdSRecursion(path.join(__dirname, "commands/"))
 let rest = new REST().setToken(process.env.TOKEN)
 
 console.log(`Found ${cmd.length} commands. Now performing PUT`)
-rest.put(Routes.applicationGuildCommand(process.env.BOT_ID, process.env.CAEID), {body: cmd})
+rest.put(Routes.applicationGuildCommands(process.env.BOT_ID, process.env.CAEID), {body: cmd})
   .then(() => {console.log(`PUT OK, registration of ${cmd.length} to ${process.env.CAEID} done`)})
   .catch(_ => {console.log(`PUT FAILED: ${_.code}: ${_.toString()}`)})
