@@ -1,5 +1,7 @@
 const { SlashCommandBuilder } = require('discord.js')
+const path = require("path")
 const bot = require(path.resolve(__dirname, "../", "index.js"))
+
 module.exports = {
   handler: (i) => {
     i.deferReply()
