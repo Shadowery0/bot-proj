@@ -34,7 +34,7 @@ class ClientPlayer extends Player {
       this._self.id = one?.data.myId ?? ""
       this._self.ci = 0
       this._self.ti = Date.now() * 1000
-      await new Promise(_ => setTimeout(_, 5000))
+      await new Promise(_ => setTimeout(_, 2500))
       
       const r = await axios.post(MPS, this._self, {headers: header})
       this._self.lastMsgId = r.data.lastMsgId
@@ -94,7 +94,7 @@ class ClientPlayer extends Player {
                 console.error("[CHK XX GeoFS] FAILED!")
                 rj(false)
               })
-          }, 5000)
+          }, 2500)
         })
         .catch(false)
     })
