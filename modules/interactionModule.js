@@ -14,7 +14,7 @@ module.exports = {
     })
   },
   init: () => {
-    rdsr(path.resolve("../", "commands/"), (cd, f) => {
+    rdsr(path.resolve(__dirname, "../", "commands/"), (cd, f) => {
       const _ = require(path.join(cd, f.name))
       if (
         _?.data === undefined || !(_?.data instanceof SlashCommandBuilder) ||
