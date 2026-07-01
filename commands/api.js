@@ -3,9 +3,9 @@ const path = require("path")
 const bot = require(path.resolve(__dirname, "../", "index.js"))
 
 module.exports = {
-  handler: (i) => {
-    i.deferReply()
-    i.editReply(`There are ${bot.geofs.map.getPlayerCount()} players online`)
+  handler: async (i) => {
+    await i.deferReply()
+    await i.editReply(`There are ${bot.geofs.map.getPlayerCount()} players online`)
   },
   data: new SlashCommandBuilder()
     .setName("api")
