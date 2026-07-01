@@ -1,28 +1,19 @@
 const fs = require("fs")
 const path = require("path")
-const { REST, Routes } = require("discord.js")
+const rdsr = require("./recursive")
+const { REST, Routes, SlashCommandBuilder } = require("discord.js")
 require("dotenv").config()
 
 let cmd = []
 
-function rdSRecursion(currentDir) {
-  let dir = fs.readdirSync(currentDir, { withFileTypes: true })
-  
-  dir = dir.filter(item => {
-    return item.isDirectory() || item.name.endsWith(".js")
-  })
-  
-  for (const item of dir) {
-    if (item.isDirectory()) {
-      rdSRecursion(path.join(currentDir, item.name))
-    } else {
-      const file = require(path.join(currentDir, item.name))
-      cmd.push(file.data?.toJSON())
-    }
+rdsr(path.join(__dirname, "commands/"), f => {
+  const _ = require(f)
+  if(_?.data === undefined || !(_?.data instanceof SlashCommandBuilder)) {
+    throw new TypeError(`Command file ${f.name} does not have a valid SlashCommandBuilder data.`)
+  } else {
+    cmd.push(f.data.toJSON())
   }
-}
-
-rdSRecursion(path.join(__dirname, "commands/"))
+})
 
 let rest = new REST().setToken(process.env.TOKEN)
 

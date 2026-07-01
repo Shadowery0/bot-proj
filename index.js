@@ -1,5 +1,6 @@
 const { Client, GatewayIntentBits } = require("discord.js")
 const path = require("path")
+consr rdsr = require("./recursive")
 const { Chalk } = require("chalk")
 const { GFSManager } = require("./gfs/gfs.js")
 require("dotenv").config()
@@ -10,29 +11,23 @@ class BotWrapper {
   // geofs = new GFSManager(1653622);
   
   constructor(token) {
+    // Login
     this.client.login(token)
       .then(_ => {console.debug("Logged in! Now I am " + this.client.user.tag + " or "+ this.client.user.id)})
       .catch(console.error)
-    this.client.on("debug", _ => {console.debug(_)})
+    // this.client.on("debug", _ => {console.debug(_)})
     this.client.on("clientReady", () => {
-      function rdSRecursion(currentDir) {
-        let dir = fs.readdirSync(currentDir, { withFileTypes: true })
-        
-        dir = dir.filter(item => {
-          return item.isDirectory() || item.name.endsWith(".js")
-        })
-        
-        for (const item of dir) {
-          if (item.isDirectory()) {
-            rdSRecursion(path.join(currentDir, item.name))
-          } else {
-            const file = require(path.join(currentDir, item.name))
-            client.on(file.event, file.handler)
-            console.log("Successfully registered module " + file.name)
-          }
+      rdsr(path.join(__dirname, "modules"), f => {
+        if (
+          const _ = require(f)
+          _?.event === undefined || _?.handler === undefined ||
+          typeof _?.event !== "string" || typeof _?.handler !== "function"
+        ) {
+          throw new TypeError(`Module file ${f.name} does not have valid data.`)
+        } else {
+          this.client.on(_.event, _.handler)
         }
-      }
-      rdSRecursion(path.join(__dirname, "modules"))
+      })
     })
   }
 }
