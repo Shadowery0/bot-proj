@@ -1,6 +1,6 @@
 const { Client, GatewayIntentBits } = require("discord.js")
 const path = require("path")
-consr rdsr = require("./recursive")
+const rdsr = require("./recursive")
 const { Chalk } = require("chalk")
 const { GFSManager } = require("./gfs/gfs.js")
 require("dotenv").config()
