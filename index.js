@@ -20,7 +20,7 @@ class BotWrapper {
       rdsr(path.join(__dirname, "modules"), (cd, f) => {
         const _ = require(path.join(cd, f.name))
         if (
-          _?.event === undefined || _?.handler === undefined || _?.init === undefined
+          _?.event === undefined || _?.handler === undefined || _?.init === undefined ||
           typeof _?.event !== "string" || typeof _?.handler !== "function" ||
           typeof _?.init !== "function"
         ) {
