@@ -147,7 +147,7 @@ class MapManager extends EventEmitter
           this.map.users = this.map.users.filter(_ => {
             if(_ === undefined || _ === null) return false
             
-            return _.acid === null || _.cs.toLowerCase() !== "Foo"
+            return _.acid === null || _.cs.toLowerCase() === "Foo"
           })
         })
     }, 5000)
