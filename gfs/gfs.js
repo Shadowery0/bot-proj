@@ -150,7 +150,7 @@ class MapManager extends EventEmitter
     }, 5000)
   }
   getPlayerCount() {
-    return map.length
+    return this.map.users.length
   }
 }
 
